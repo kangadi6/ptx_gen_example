@@ -56,7 +56,7 @@ $L__BB0_2:
 	.param .align 8 .b8 _Z6vecAddPiS_S_5foo_t_param_3[24]
 )
 {
-	.local .align 8 .b8 	__local_depot1[24];
+	.local .align 8 .b8 	__local_depot1[24]; // KA: Space in local stack equal to param_3
 	.reg .b64 	%SP;
 	.reg .b64 	%SPL;
 	.reg .pred 	%p<2>;
@@ -66,14 +66,14 @@ $L__BB0_2:
 	.reg .b64 	%rd<16>;
 
 
-	mov.u64 	%SPL, __local_depot1;
+	mov.u64 	%SPL, __local_depot1; 
 	cvta.local.u64 	%SP, %SPL;
 	ld.param.u64 	%rd2, [_Z6vecAddPiS_S_5foo_t_param_0];
 	ld.param.u64 	%rd3, [_Z6vecAddPiS_S_5foo_t_param_1];
 	ld.param.u64 	%rd4, [_Z6vecAddPiS_S_5foo_t_param_2];
 	ld.param.f32 	%f1, [_Z6vecAddPiS_S_5foo_t_param_3+16];
 	ld.param.u64 	%rd5, [_Z6vecAddPiS_S_5foo_t_param_3];
-	add.u64 	%rd6, %SP, 0;
+	add.u64 	%rd6, %SP, 0; // KA: rd6 points to stack
 	add.u64 	%rd7, %SPL, 0;
 	st.local.u64 	[%rd7], %rd5;
 	ld.param.v2.u32 	{%r2, %r3}, [_Z6vecAddPiS_S_5foo_t_param_3+8];
@@ -107,7 +107,7 @@ $L__BB0_2:
 	.param .b32 param2;
 	st.param.b32 	[param2+0], %r12;
 	.param .b64 param3;
-	st.param.b64 	[param3+0], %rd6;
+	st.param.b64 	[param3+0], %rd6; // KA: rd6 points to local stack
 	.param .b32 retval0;
 	call.uni (retval0), 
 	_Z3addiiiRK5foo_t, 
@@ -115,7 +115,7 @@ $L__BB0_2:
 	param0, 
 	param1, 
 	param2, 
-	param3
+	param3 // KA: rd6
 	);
 	ld.param.b32 	%r13, [retval0+0];
 	} // callseq 0
